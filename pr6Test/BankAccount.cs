@@ -7,10 +7,8 @@ namespace pr6Test
         private double m_balance;
         public const string DebitAmountExceedsBalanceMessage = "Debit amount exceeds balance";
         public const string DebitAmountLessThanZeroMessage = "Debit amount is less than zero";
-
-
+        public const string CreditBelowZeroMessage = "Credit amount below zero";
         private BankAccount() { }
-
 
         public BankAccount(string customerName, double balance)
         {
@@ -29,8 +27,10 @@ namespace pr6Test
         {
             get { return m_balance; }
         }
-
-
+        /// <summary>
+        /// Этот метод списывает с баланса указанную вами сумму.
+        /// </summary>
+        /// <param name="amount">Какую сумму списать</param>
         public void Debit(double amount)
         {
 
@@ -43,19 +43,18 @@ namespace pr6Test
             {
                 throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
             }
-
-
-
             m_balance -= amount;
         }
+        /// <summary>
+        /// Этот метод увеличивет баланс на указанную вами сумму.
+        /// </summary>
+        /// <param name="amount">На какую сумму увеличить</param>
         public void Credit(double amount)
         {
             if (amount < 0)
             {
-                throw new ArgumentOutOfRangeException("amount");
+                throw new ArgumentOutOfRangeException("amount", amount, CreditBelowZeroMessage);
             }
-
-
             m_balance += amount;
         }
 
